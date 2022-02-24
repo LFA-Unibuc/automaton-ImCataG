@@ -1,6 +1,9 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-f059dc9a6f8d3a56e377f745f24479a46679e63a5d9fe6f495e02850cd0d8118.svg)](https://classroom.github.com/online_ide?assignment_repo_id=7137743&assignment_repo_type=AssignmentRepo)
 # automaton
 ### First LFA Lab
+
+[![forthebadge](https://forthebadge.com/images/badges/60-percent-of-the-time-works-every-time.svg)](https://forthebadge.com)
+
 Exercise 1. Implement a library/program in a programming language of your
 choosing to load and validate the following input file:
 ```
@@ -41,3 +44,5 @@ succeed only one state.
 Exercise 2. Familiarize yourself with Python Notebooks if python is your language of choice.
 
 Exercise 3. Familiarize yourself with Latex (overleaf.com).
+
+ayothepizzabruh
