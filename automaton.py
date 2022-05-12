@@ -25,19 +25,19 @@ class Automaton():
 
         self.data = at
         if Scount != 1:
-            raise Exception('ValidationException: Mai multe stagii de tip \'S\'')
+            return False
 
         for transition in at['transitions'].keys():
             if not transition in at['states'].keys():
-                raise Exception('ValidationException: State ' + transition + ' declaration missing!')
+                return False
             for line in at['transitions'][transition].keys():
                 if not line in at['sigma']:
-                    raise Exception('ValidationException: Sigma ' + line + ' declaration missing!')
+                    return False
                 for q in at['transitions'][transition][line]:
                     if not q in at['states'].keys():
-                        raise Exception('ValidationException: State ' + at['transitions'][transition][line] + ' declaration missing!')
+                        return False
 
-        return "Everything worked out."
+        return True
 
     def accepts_input(self, input_str):
         """Return a Boolean
