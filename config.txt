@@ -24,6 +24,7 @@ End
 Transitions :
     q0, a, q1
     q1, b, q1
+    q1, b, q3
     q1, c, q2
     q1, d, q3
     q3, d, q3

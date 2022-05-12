@@ -15,13 +15,15 @@ class Automaton():
         Scount = 0
         with open(self.config_file) as f:
             at = self.read_input(f.read())
-
-        print(json.dumps(at, indent = 4))
+        
+        # print(json.dumps(at, indent = 4))
 
         for state in at['states'].keys():
             if 'S' in at['states'][state]:
                 Scount += 1
+                at['start'] = state
 
+        self.data = at
         if Scount != 1:
             raise Exception('ValidationException: Mai multe stagii de tip \'S\'')
 
@@ -31,8 +33,9 @@ class Automaton():
             for line in at['transitions'][transition].keys():
                 if not line in at['sigma']:
                     raise Exception('ValidationException: Sigma ' + line + ' declaration missing!')
-                if not at['transitions'][transition][line] in at['states'].keys():
-                    raise Exception('ValidationException: State ' + at['transitions'][transition][line] + ' declaration missing!')
+                for q in at['transitions'][transition][line]:
+                    if not q in at['states'].keys():
+                        raise Exception('ValidationException: State ' + at['transitions'][transition][line] + ' declaration missing!')
 
         return "Everything worked out."
 
@@ -118,9 +121,12 @@ class Automaton():
                                 
                                 else:
                                     if not content[0] in transitions:
-                                        transitions[content[0]] = {content[1] : content[2]}
+                                        transitions[content[0]] = {content[1] : [content[2]]}
                                     else:
-                                        transitions[content[0]][content[1]] = content[2]
+                                        if content[1] in transitions[content[0]].keys():
+                                            transitions[content[0]][content[1]].append(content[2])
+                                        else:
+                                            transitions[content[0]][content[1]] = [content[2]]
 
 
 
@@ -132,9 +138,16 @@ class Automaton():
             raise Exception('RejectionException: Lipseste States')
         if not foundtransitions:
             raise Exception('RejectionException: Lipseste Transitions')
+        
+        for q in states:
+            if not q in transitions.keys():
+                transitions[q] = {}
+        # print  ({'states' : states, 'sigma' : sigma, 'transitions' : transitions})
         return {'states' : states, 'sigma' : sigma, 'transitions' : transitions}
     
 
 if __name__ == "__main__":
     a = Automaton('config.txt')
     print(a.validate())
+    print(a.data)
+    
